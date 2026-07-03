@@ -36,8 +36,8 @@ services:
     ports:
       - "5433:5432"
     environment:
-      POSTGRES_USER: aliwert
-      POSTGRES_PASSWORD: 5858
+      POSTGRES_USER: ${DB_USERNAME:-aliwert}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-5858}
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./infra/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
