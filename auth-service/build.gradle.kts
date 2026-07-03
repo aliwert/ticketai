@@ -27,6 +27,7 @@ dependencies {
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    implementation("io.micrometer:micrometer-tracing-bridge-otel")
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
     implementation("tools.jackson.module:jackson-module-kotlin")
     implementation("org.flywaydb:flyway-core")

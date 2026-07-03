@@ -120,6 +120,9 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 
 management:
+  tracing:
+    sampling:
+      probability: 1.0
   endpoints:
     web:
       exposure:
@@ -132,7 +135,7 @@ management:
 
 logging:
   pattern:
-    level: "%5p [%X{correlation-id:-}]"
+    level: "%5p [%X{correlation-id:-}] [%X{traceId:-},%X{spanId:-}]"
 
 app:
   jwt:

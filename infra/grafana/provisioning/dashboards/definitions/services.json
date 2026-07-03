@@ -1,0 +1,40 @@
+{
+  "title": "Ticketa-AI Services",
+  "uid": "ticketa-services",
+  "schemaVersion": 39,
+  "version": 1,
+  "panels": [
+    {
+      "title": "JVM Memory Usage",
+      "type": "graph",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "targets": [
+        { "expr": "sum(jvm_memory_used_bytes{area=\"heap\"}) by (instance)", "legendFormat": "{{instance}}" }
+      ]
+    },
+    {
+      "title": "HTTP Request Rate",
+      "type": "graph",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [
+        { "expr": "rate(http_server_requests_seconds_count[1m])", "legendFormat": "{{instance}}" }
+      ]
+    },
+    {
+      "title": "Kafka Consumer Lag",
+      "type": "graph",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "targets": [
+        { "expr": "kafka_consumer_fetch_manager_records_lag", "legendFormat": "{{instance}}" }
+      ]
+    },
+    {
+      "title": "Up Services",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 12, "x": 12, "y": 8 },
+      "targets": [
+        { "expr": "count(up == 1)" }
+      ]
+    }
+  ]
+}

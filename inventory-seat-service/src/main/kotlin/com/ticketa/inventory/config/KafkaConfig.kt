@@ -15,8 +15,11 @@ import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.core.ProducerFactory
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer
 import org.springframework.kafka.listener.DefaultErrorHandler
+import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
 import org.springframework.kafka.support.serializer.JsonDeserializer
 import org.springframework.kafka.support.serializer.JsonSerializer
+import org.springframework.kafka.listener.CommonErrorHandler
+import org.springframework.kafka.listener.DeadLetterPublishingRecoverer
 import org.springframework.util.backoff.FixedBackOff
 
 @Configuration
@@ -45,14 +48,17 @@ class KafkaConfig {
         val config = mapOf<String, Any>(
             ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG to bootstrapServers,
             ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
-            ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to JsonDeserializer::class.java,
+            ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to ErrorHandlingDeserializer::class.java,
+            ErrorHandlingDeserializer.VALUE_DELEGATE_DESERIALIZER_CLASS to JsonDeserializer::class.java,
             ConsumerConfig.GROUP_ID_CONFIG to "inventory-seat-service",
             JsonDeserializer.TRUSTED_PACKAGES to "*"
         )
         val consumerFactory = DefaultKafkaConsumerFactory<String, Any>(config)
         val factory = ConcurrentKafkaListenerContainerFactory<String, Any>()
         factory.setConsumerFactory(consumerFactory)
-        factory.setCommonErrorHandler(DefaultErrorHandler(FixedBackOff(1000L, 3)))
+        val recoverer = DeadLetterPublishingRecoverer(kafkaTemplate(producerFactory()))
+        val errorHandler = DefaultErrorHandler(recoverer, FixedBackOff(1000L, 3))
+        factory.setCommonErrorHandler(errorHandler)
         return factory
     }
 }

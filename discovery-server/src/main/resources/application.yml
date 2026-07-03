@@ -22,7 +22,10 @@ management:
       show-details: always
       probes:
         enabled: true
+  tracing:
+    sampling:
+      probability: 1.0
 
 logging:
   pattern:
-    level: "%5p [%X{correlation-id:-}]"
+    level: "%5p [%X{correlation-id:-}] [%X{traceId:-},%X{spanId:-}]"

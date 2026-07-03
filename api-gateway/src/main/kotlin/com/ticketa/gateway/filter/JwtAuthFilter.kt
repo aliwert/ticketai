@@ -25,11 +25,12 @@ import java.util.concurrent.atomic.AtomicReference
 @Order(Ordered.HIGHEST_PRECEDENCE + 1)
 class JwtAuthFilter(
     @Value("\${app.jwt.jwks-url}") private val jwksUrl: String,
-    @Value("\${app.jwt.cache-ttl-seconds}") private val cacheTtl: Long
+    @Value("\${app.jwt.cache-ttl-seconds}") private val cacheTtl: Long,
+    private val webClientBuilder: WebClient.Builder
 ) : GlobalFilter {
 
     private val log = LoggerFactory.getLogger(JwtAuthFilter::class.java)
-    private val webClient = WebClient.create()
+    private val webClient = webClientBuilder.build()
     private val cachedProcessor = AtomicReference<CachedProcessor>()
 
     private val publicPrefixes = setOf(
