@@ -23,9 +23,17 @@ class CorrelationIdFilter : WebFilter {
             .getFirst(CORRELATION_ID_HEADER)
             ?: UUID.randomUUID().toString()
 
-        exchange.response.headers.add(CORRELATION_ID_HEADER, correlationId)
+        val mutatedRequest = exchange.request.mutate()
+            .header(CORRELATION_ID_HEADER, correlationId)
+            .build()
 
-        return chain.filter(exchange)
+        val mutatedExchange = exchange.mutate()
+            .request(mutatedRequest)
+            .build()
+
+        mutatedExchange.response.headers.add(CORRELATION_ID_HEADER, correlationId)
+
+        return chain.filter(mutatedExchange)
             .contextWrite { ctx -> ctx.put(CORRELATION_ID_KEY, correlationId) }
     }
 }
