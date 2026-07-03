@@ -3,10 +3,12 @@ package com.ticketa.gateway.filter
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.springframework.web.reactive.function.client.WebClient
 
 class JwtAuthFilterTest {
 
-    private val filter = JwtAuthFilter("http://localhost:8081/api/auth/jwks", 300)
+    private val webClientBuilder = WebClient.builder()
+    private val filter = JwtAuthFilter("http://localhost:8081/api/auth/jwks", 300, webClientBuilder)
 
     @Test
     fun `public path register bypasses auth`() {

@@ -49,7 +49,7 @@ class KafkaConfig {
             ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG to bootstrapServers,
             ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
             ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to ErrorHandlingDeserializer::class.java,
-            ErrorHandlingDeserializer.VALUE_DELEGATE_DESERIALIZER_CLASS to JsonDeserializer::class.java,
+            "spring.deserializer.value.delegate.class" to JsonDeserializer::class.java,
             ConsumerConfig.GROUP_ID_CONFIG to "ticket-service",
             JsonDeserializer.TRUSTED_PACKAGES to "*"
         )

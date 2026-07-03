@@ -1,10 +1,12 @@
 package com.ticketa.discovery
 
 import org.junit.jupiter.api.Test
+import org.springframework.boot.test.context.SpringBootTest
 
+@SpringBootTest
 class DiscoveryServerApplicationTests {
 
     @Test
-    fun placeholder() {
+    fun contextLoads() {
     }
 }
