@@ -9,9 +9,8 @@ group = "com.example"
 version = "0.0.1-SNAPSHOT"
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
 }
 
 repositories {
@@ -40,6 +39,7 @@ dependencyManagement {
 kotlin {
 	compilerOptions {
 		freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
+		jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_25
 	}
 }
 
