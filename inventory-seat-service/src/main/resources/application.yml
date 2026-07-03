@@ -3,16 +3,16 @@ spring:
     name: inventory-seat-service
   r2dbc:
     url: r2dbc:postgresql://localhost:5432/inventory_db
-    username: postgres
-    password: postgres
+    username: aliwert
+    password: 5858
     pool:
       max-size: 10
       initial-size: 2
       max-idle-time: 30m
   flyway:
     url: jdbc:postgresql://localhost:5432/inventory_db
-    user: postgres
-    password: postgres
+    user: aliwert
+    password: 5858
     locations: classpath:db/migration
     baseline-on-migrate: true
   data:

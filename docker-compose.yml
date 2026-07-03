@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:latest
+    image: confluentinc/cp-zookeeper:7.6.1
     platform: linux/arm64
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
@@ -11,7 +11,7 @@ services:
       - "2181:2181"
 
   kafka:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:7.6.1
     platform: linux/arm64
     depends_on:
       - zookeeper
@@ -34,10 +34,10 @@ services:
     image: postgres:16-alpine
     platform: linux/arm64
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: aliwert
+      POSTGRES_PASSWORD: 5858
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./infra/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
