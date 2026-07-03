@@ -24,18 +24,24 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
     implementation("org.springframework.boot:spring-boot-starter-kafka")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
-    implementation("tools.jackson.module:jackson-module-kotlin")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-database-postgresql")
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("org.postgresql:r2dbc-postgresql")
     runtimeOnly("io.micrometer:micrometer-registry-prometheus")
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude("org.junit.vintage", "junit-vintage-engine")
+    }
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    testImplementation("io.projectreactor:reactor-test")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
