@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: ticket-service
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/ticket_db
+    username: postgres
+    password: postgres
+  flyway:
+    url: jdbc:postgresql://localhost:5432/ticket_db
+    user: postgres
+    password: postgres
+    locations: classpath:db/migration
+  kafka:
+    bootstrap-servers: localhost:9092
+
+server:
+  port: 8085
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
