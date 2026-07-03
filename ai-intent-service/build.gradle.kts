@@ -30,6 +30,7 @@ dependencies {
     implementation("org.springframework.ai:spring-ai-starter-model-openai")
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
     implementation("tools.jackson.module:jackson-module-kotlin")
+    runtimeOnly("io.micrometer:micrometer-registry-prometheus")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

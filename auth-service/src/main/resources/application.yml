@@ -5,11 +5,16 @@ spring:
     url: r2dbc:postgresql://localhost:5432/auth_db
     username: postgres
     password: postgres
+    pool:
+      max-size: 10
+      initial-size: 2
+      max-idle-time: 30m
   flyway:
     url: jdbc:postgresql://localhost:5432/auth_db
     user: postgres
     password: postgres
     locations: classpath:db/migration
+    baseline-on-migrate: true
 
 server:
   port: 8081
@@ -18,3 +23,18 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+
+logging:
+  pattern:
+    level: "%5p [%X{correlation-id:-}]"
