@@ -1,6 +1,7 @@
 spring:
   application:
     name: ai-intent-service
+
   kafka:
     bootstrap-servers: localhost:9092
     producer:
@@ -8,6 +9,14 @@ spring:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
         spring.json.add.type.headers: false
+
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:sk-placeholder}
+      chat:
+        options:
+          model: gpt-4o-mini
+          temperature: 0.1
 
 server:
   port: 8082
@@ -31,3 +40,7 @@ management:
 logging:
   pattern:
     level: "%5p [%X{correlation-id:-}]"
+
+app:
+  kafka:
+    intent-topic: intent.created
