@@ -31,4 +31,7 @@ redis_data/
 
 *.md
 
+# macOS system files
 *.DS_Store
+*.AppleDouble
+*.LSOverride
